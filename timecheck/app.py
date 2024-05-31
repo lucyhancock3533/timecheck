@@ -14,7 +14,12 @@ def run():
     print(f'Time request took {req_end - req_start}')
     if (req_end - req_start).seconds > 0:
         print("Time request took too long, results may be inaccurate")
-    time_delta = (remote_time - system_time) - (req_end - req_start)
+    time_delta = remote_time - system_time
+    req_time = req_end - req_start
+    if req_time < time_delta:
+        time_delta -= req_time
+    else:
+        print("System time diff lower than request time")
     print(f"System time differs from remote time by {time_delta}")
     root = Tk()
     root.withdraw()
